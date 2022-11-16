@@ -2,8 +2,13 @@ using OnionApp.Domain.Interfaces;
 using OnionApp.Infrastructure.Data;
 using OnionApp.Services.Interfaces;
 using OnionApp.Infrastructure.Business;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<OrderContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

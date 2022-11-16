@@ -6,43 +6,43 @@ namespace OnionApp.Infrastructure.Data
 {
     public class BookRepository : IBookRepository
     {
-        private OrderContext db;
+        private OrderContext dbContext;
 
         public BookRepository()
         {
-            this.db = new OrderContext();
+            this.dbContext = new OrderContext();
         }
 
         public IEnumerable<Book> GetBookList()
         {
-            return db.Books.ToList();
+            return dbContext.Books.ToList();
         }
 
         public Book GetBook(int id)
         {
-            return db.Books.Find(id);
+            return dbContext.Books.Find(id);
         }
 
         public void Create(Book book)
         {
-            db.Books.Add(book);
+            dbContext.Books.Add(book);
         }
 
         public void Update(Book book)
         {
-            db.Entry(book).State = EntityState.Modified;
+            dbContext.Entry(book).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            Book book = db.Books.Find(id);
+            Book book = dbContext.Books.Find(id);
             if (book != null)
-                db.Books.Remove(book);
+                dbContext.Books.Remove(book);
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            dbContext.SaveChanges();
         }
 
         private bool disposed = false;
@@ -53,7 +53,7 @@ namespace OnionApp.Infrastructure.Data
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    dbContext.Dispose();
                 }
             }
             this.disposed = true;
